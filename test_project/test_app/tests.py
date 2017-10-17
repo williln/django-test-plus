@@ -16,8 +16,10 @@ except ImportError:
 from test_plus.test import (
     CBVTestCase,
     NoPreviousResponse,
-    TestCase
+    TestCase,
+    APITestCase,
 )
+from test_plus.compat import DRF
 
 from .forms import TestNameForm
 from .models import Data
@@ -28,6 +30,7 @@ from .views import (
 )
 
 DJANGO_16 = LooseVersion(django.get_version()) >= LooseVersion('1.6')
+DJANGO_18 = LooseVersion(django.get_version()) >= LooseVersion('1.8')
 
 if DJANGO_16:
     from django.contrib.auth import get_user_model
@@ -556,3 +559,12 @@ class TestPlusCBCustomMethodTests(CBVTestCase):
     def test_custom_method_no_value(self):
         instance = self.get_instance(CBView)
         self.assertFalse(instance.special())
+
+
+@unittest.skipUnless(DRF is True and DJANGO_18 is True, 'DRF is not installed.')
+class TestAPITestCaseDRFInstalled(APITestCase):
+
+    def test_post(self):
+        data = {'testing': {'prop': 'value'}}
+        self.post('view-json', data=data, extra={'format': 'json'})
+        self.response_200()
