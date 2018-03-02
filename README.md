@@ -41,7 +41,7 @@ Usage
 -----
 
 Using django-test-plus is pretty easy, simply have your tests inherit
-from test\_plus.test.TestCase rather than the normal
+from test_plus.test.TestCase rather than the normal
 django.test.TestCase like so:
 
     from test_plus.test import TestCase
@@ -76,7 +76,7 @@ is more similar to the regular importing of Django's TestCase:
 Methods
 -------
 
-### reverse(url\_name, \*args, \*\*kwargs)
+### reverse(url_name, \*args, \*\*kwargs)
 
 When testing views you often find yourself needing to reverse the URL's
 name. With django-test-plus there is no need for the
@@ -91,11 +91,11 @@ use:
 As you can see our reverse also passes along any args or kwargs you need
 to pass in.
 
-### get(url\_name, follow=True, \*args, \*\*kwargs)
+### get(url_name, follow=True, \*args, \*\*kwargs)
 
 Another thing you do often is HTTP get urls. Our `get()` method assumes
 you are passing in a named URL with any args or kwargs necessary to
-reverse the url\_name. If needed, place kwargs for `TestClient.get()` in
+reverse the url_name. If needed, place kwargs for `TestClient.get()` in
 an 'extra' dictionary.:
 
     def test_get_named_url(self):
@@ -136,7 +136,7 @@ so like this. Assuming the name 'search' maps to '/search/' then:
 
 Would GET /search/?query=testing
 
-### post(url\_name, data, follow=True, \*args, \*\*kwargs)
+### post(url_name, data, follow=True, \*args, \*\*kwargs)
 
 Our `post()` method takes a named URL, the dictionary of data you wish
 to post and any args or kwargs necessary to reverse the url\_name. If
@@ -150,7 +150,7 @@ needed, place kwargs for `TestClient.post()` in an 'extra' dictionary.:
 the HTTP verbs such as put, patch, head, trace, options, and delete in
 the same fashion.
 
-### get\_context(key)
+### get_context(key)
 
 Often you need to get things out of the template context, so let's make
 that easy:
@@ -177,7 +177,7 @@ equality while we're at it. This asserts that key == value:
         self.get('my-view-with-some-context')
         self.assertContext('some-key', 'expected value')
 
-### response\_XXX(response) - status code checking
+### response_XXX(response) - status code checking
 
 Another test you often need to do is check that a response has a certain
 HTTP status code. With Django's default TestCase you would write:
@@ -205,7 +205,7 @@ django-test-plus provides the following response method checks for you:
     - response_405()
 
 All of which take an option Django test client response as their only
-argument. If it's available, the response\_XXX methods will use the last
+argument. If it's available, the response_XXX methods will use the last
 response. So you can do:
 
     def test_status(self):
@@ -214,7 +214,7 @@ response. So you can do:
 
 Which is a bit shorter.
 
-### get\_check\_200(url\_name, \*args, \*\*kwargs)
+### get_check_200(url_name, \*args, \*\*kwargs)
 
 GETing and checking views return status 200 is so common a test this
 method makes it even easier:
@@ -222,7 +222,7 @@ method makes it even easier:
     def test_even_better_status(self):
         response = self.get_check_200('my-url-name')
 
-### make\_user(username='testuser', password='password', perms=None)
+### make_user(username='testuser', password='password', perms=None)
 
 When testing out views you often need to create various users to ensure
 all of your logic is safe and sound. To make this process easier, this
@@ -259,7 +259,7 @@ You can also pass in user permissions by passing in a string of
 
     user2 = self.make_user(perms=['myapp.create_widget', 'otherapp.*'])
 
-### print\_form\_errors(response\_or\_form=None)
+### print_form_errors(response_or_form=None)
 
 When debugging a failing test for a view with a form, this method helps
 you quickly look at any form errors.
@@ -284,7 +284,7 @@ Example usage:
 Authentication Helpers
 ----------------------
 
-### assertLoginRequired(url\_name, \*args, \*\*kwargs)
+### assertLoginRequired(url_name, \*args, \*\*kwargs)
 
 It's pretty easy to add a new view to a project and forget to restrict
 it to be login required, this method helps make it easy to test that a
@@ -351,7 +351,7 @@ more queries than you expect:
         with self.assertNumQueriesLessThan(7):
             self.get('some-view-with-6-queries')
 
-### assertGoodView(url\_name, \*args, \*\*kwargs)
+### assertGoodView(url_name, \*args, \*\*kwargs)
 
 This method does a few of things for you, it:
 
@@ -392,7 +392,7 @@ that:
             self.post('view-json', data=data, extra={'format': 'json'})
             self.response_200()
 
-Note that using `APITestCase` requires Django \>= 1.8 and having
+Note that using `APITestCase` requires Django >= 1.8 and having
 installed `django-rest-framework`.
 
 Testing class-based "generic" views
@@ -417,7 +417,7 @@ call the overridden method directly and test the result.
 CBVTestCase to the rescue!
 
 As with TestCase above, simply have your tests inherit from
-test\_plus.test.CBVTestCase rather than TestCase like so:
+test_plus.test.CBVTestCase rather than TestCase like so:
 
     from test_plus.test import CBVTestCase
 
@@ -426,7 +426,7 @@ test\_plus.test.CBVTestCase rather than TestCase like so:
 Methods
 -------
 
-### get\_instance(cls, initkwargs=None, request=None, \*args, \*\*kwargs)
+### get_instance(cls, initkwargs=None, request=None, \*args, \*\*kwargs)
 
 This core method simplifies the instantiation of your class, giving you
 a way to invoke class methods directly.
@@ -490,12 +490,12 @@ context variables created by middleware are not available. If this
 affects your template/context testing you should use TestCase instead of
 CBVTestCase.
 
-### get\_check\_200(cls, initkwargs=None, \*args, \*\*kwargs)
+### get_check_200(cls, initkwargs=None, \*args, \*\*kwargs)
 
 Works just like `TestCase.get_check_200()`. Caller must provide a view
 class instead of a URL name or path parameter.
 
-All test\_plus TestCase side-effects are honored and all test\_plus
+All test_plus TestCase side-effects are honored and all test\_plus
 TestCase assertion methods work with `CBVTestCase.post()`.
 
 ### assertGoodView(cls, initkwargs=None, \*args, \*\*kwargs)
@@ -503,7 +503,7 @@ TestCase assertion methods work with `CBVTestCase.post()`.
 Works just like `TestCase.assertGoodView()`. Caller must provide a view
 class instead of a URL name or path parameter.
 
-All test\_plus TestCase side-effects are honored and all test\_plus
+All test_plus TestCase side-effects are honored and all test_plus
 TestCase assertion methods work with `CBVTestCase.post()`.
 
 Keep in touch!
