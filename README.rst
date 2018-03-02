@@ -1,7 +1,7 @@
 django-test-plus
 ================
 
-Useful additions to Django's default TestCase from `REVSYS <https://www.revsys.com/>`, because "code without tests is broken by design" (Jacob Kaplan-Moss). __
+Useful additions to Django's default TestCase from `REVSYS <https://www.revsys.com/>`__, because "code without tests is broken by design" (Jacob Kaplan-Moss).
 
 |travis ci status image| |Coverage Status|
 
